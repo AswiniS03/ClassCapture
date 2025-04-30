@@ -23,7 +23,7 @@ except Exception as e:
     exit(1)
 
 # Set up Google Generative AI
-GOOGLE_API_KEY = "AIzaSyAGNPf31SVtCroWTilqgJybu7DLdJqF2L4"
+GOOGLE_API_KEY = ""
 
 # Configure the API key
 try:
