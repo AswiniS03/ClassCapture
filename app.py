@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 # Load models
 whisper_model = whisper.load_model("base")
-GOOGLE_API_KEY = "AIzaSyAGNPf31SVtCroWTilqgJybu7DLdJqF2L4"
+
 genai.configure(api_key=GOOGLE_API_KEY)
 genai_model = genai.GenerativeModel("models/gemini-1.5-pro")
 
@@ -82,7 +82,7 @@ app = Flask(__name__)
 
 # Load Whisper and Gemini models
 whisper_model = whisper.load_model("base")
-GOOGLE_API_KEY = "AIzaSyAGNPf31SVtCroWTilqgJybu7DLdJqF2L4"
+GOOGLE_API_KEY = "" #Enter google api
 genai.configure(api_key=GOOGLE_API_KEY)
 genai_model = genai.GenerativeModel("models/gemini-1.5-pro")
 
