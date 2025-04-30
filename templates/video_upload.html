@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Transcription and Summarization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="#">MyApp</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+                <li><a href="{{ url_for('index') }}">Audio Notes</a></li>
+                <li><a href="{{ url_for('video') }}">Video Notes</a></li>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <h1>Video Transcription and Summarization</h1>
+        <form id="video-upload-form" enctype="multipart/form-data">
+            <input type="file" id="video-file-input" name="file" accept="video/*" required>
+            <button type="submit">Upload and Process</button>
+        </form>
+
+        <div class="output-section">
+            <h2>Transcript:</h2>
+            <div id="video-transcript" class="output-box"></div>
+
+            <h2>Summary:</h2>
+            <div id="video-summary" class="output-box"></div>
+            <button id="video-generate-pdf">Download PDF</button>
+            <button id="video-generate-doc">Download Word Document</button>
+        </div>
+
+        <div class="loader hidden"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('video-upload-form');
+        const transcriptDiv = document.getElementById('video-transcript');
+        const summaryDiv = document.getElementById('video-summary');
+        const loader = document.querySelector('.loader');
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            transcriptDiv.innerHTML = '';
+            summaryDiv.innerHTML = '';
+            loader.classList.remove('hidden');
+
+            const formData = new FormData(form);
+            const response = await fetch('/codeupload/video-transcribe', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+            loader.classList.add('hidden');
+
+            if (data.error) {
+                transcriptDiv.innerHTML = `<p style="color:red;">${data.error}</p>`;
+            } else {
+                transcriptDiv.textContent = data.transcript;
+                summaryDiv.textContent = data.summary;
+            }
+        });
+
+        document.getElementById('video-generate-pdf').addEventListener('click', () => {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.text("Transcript:\n" + transcriptDiv.textContent, 10, 10);
+            doc.text("Summary:\n" + summaryDiv.textContent, 10, 60);
+            doc.save('video_summary.pdf');
+        });
+
+        document.getElementById('video-generate-doc').addEventListener('click', () => {
+            const blob = new Blob(
+                [`Transcript:\n${transcriptDiv.textContent}\n\nSummary:\n${summaryDiv.textContent}`],
+                { type: "application/msword" }
+            );
+            saveAs(blob, "video_summary.doc");
+        });
+    </script>
+</body>
+</html>

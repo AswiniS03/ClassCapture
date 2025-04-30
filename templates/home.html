@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Home - Audio Transcription and Summarization</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="{{ url_for('index') }}">AudioTranscriber</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+                <li><a href="{{ url_for('index') }}">Audio Notes</a></li>
+                <li><a href="{{ url_for('video') }}">Video Notes</a></li>
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Transform Your Audio into Text</h1>
+            <p>Effortlessly transcribe and summarize audio files with our powerful tool.</p>
+            <a href="{{ url_for('index') }}" class="cta-button">Get Started</a>
+        </div>
+    </header>
+
+    <section class="features">
+        <h2>Features</h2>
+        <div class="feature-list">
+            <div class="feature">
+                <div class="feature-icon">📝</div>
+                <h3>Accurate Transcriptions</h3>
+                <p>Our advanced algorithms ensure that your audio is transcribed with high accuracy.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📄</div>
+                <h3>Summarization</h3>
+                <p>Get concise summaries of your audio content, saving you time and effort.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🚀</div>
+                <h3>Easy to Use</h3>
+                <p>Simply upload your audio files, and let our tool do the work for you.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <p>Upload your audio file using the upload form.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <p>Let our tool process the audio for transcription and summarization.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <p>View and download your transcript and summary!</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2>What Our Users Say</h2>
+        <div class="testimonial">
+            <p>"This tool saved me hours of transcription work!" - <strong>Jane Doe</strong></p>
+        </div>
+        <div class="testimonial">
+            <p>"I love the summary feature; it helps me get the gist of meetings quickly." - <strong>John Smith</strong></p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 AudioTranscriber. All rights reserved.</p>
+    </footer>
+</body>
+</html>
